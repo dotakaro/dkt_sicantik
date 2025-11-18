@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Batch Sign Wizard Form -->
+    <record id="view_batch_sign_wizard_form" model="ir.ui.view">
+        <field name="name">batch.sign.wizard.form</field>
+        <field name="model">batch.sign.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Batch Sign Dokumen">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Batch Signing</strong>
+                        <p>Tandatangani multiple dokumen sekaligus dengan BSRE TTE.</p>
+                    </div>
+                    
+                    <group>
+                        <group string="Dokumen">
+                            <field name="document_ids" widget="many2many_tags" 
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="document_count" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Catatan">
+                            <field name="signature_notes" placeholder="Tambahkan catatan tanda tangan..."/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_sign_batch" type="object" string="Tandatangani Semua" 
+                            class="btn-primary"
+                            confirm="Apakah Anda yakin ingin menandatangani semua dokumen yang dipilih?"/>
+                    <button name="action_cancel" type="object" string="Batal" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch Sign Wizard Action -->
+    <record id="action_batch_sign_wizard" model="ir.actions.act_window">
+        <field name="name">Batch Sign Dokumen</field>
+        <field name="res_model">batch.sign.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_sicantik_document"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>
+

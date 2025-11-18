@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu - Tanpa action, hanya parent -->
+    <menuitem id="menu_sicantik_tte_root"
+              name="TTE &amp; Signature"
+              sequence="15"
+              web_icon="sicantik_tte,static/description/icon.png"/>
+    
+    <!-- Documents Menu - Set action agar langsung buka list dokumen -->
+    <menuitem id="menu_sicantik_documents"
+              name="Dokumen"
+              parent="menu_sicantik_tte_root"
+              action="action_sicantik_document"
+              sequence="10"/>
+    
+    <menuitem id="menu_sicantik_document_list"
+              name="Semua Dokumen"
+              parent="menu_sicantik_documents"
+              action="action_sicantik_document"
+              sequence="10"/>
+    
+    <menuitem id="menu_signature_workflow_list"
+              name="Workflow Tanda Tangan"
+              parent="menu_sicantik_documents"
+              action="action_signature_workflow"
+              sequence="20"/>
+    
+    <!-- Configuration Menu -->
+    <menuitem id="menu_sicantik_tte_config"
+              name="Konfigurasi"
+              parent="menu_sicantik_tte_root"
+              sequence="90"
+              groups="base.group_system"/>
+    
+    <menuitem id="menu_bsre_config"
+              name="BSRE Configuration"
+              parent="menu_sicantik_tte_config"
+              action="action_bsre_config"
+              sequence="10"
+              groups="base.group_system"/>
+    
+    <!-- MinIO config menu dihapus karena konfigurasi MinIO ada di modul sicantik_connector -->
+</odoo>
+

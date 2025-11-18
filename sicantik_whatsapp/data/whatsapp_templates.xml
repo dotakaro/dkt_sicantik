@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Hapus template lama terlebih dahulu untuk menghindari konflik variabel -->
+    <delete model="whatsapp.template" search="[('template_name', 'in', ['izin_selesai_diproses', 'dokumen_baru_untuk_tandatangan', 'dokumen_perlu_approval', 'update_status_perizinan', 'reminder_dokumen_pending', 'peringatan_masa_berlaku_izin', 'perpanjangan_izin_disetujui'])]"/>
+    
+    <!-- Template 1: Izin Selesai Diproses -->
+    <record id="template_izin_selesai_diproses" model="whatsapp.template">
+        <field name="name">Izin Selesai Diproses</field>
+        <field name="template_name">izin_selesai_diproses</field>
+        <field name="model_id" ref="sicantik_connector.model_sicantik_permit"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">Yth. Bapak/Ibu {{1}},
+
+Perizinan Anda telah selesai diproses:
+📋 Jenis: {{2}}
+📄 No. Surat: {{3}}
+📅 Tanggal: {{4}}
+
+Dokumen dapat diambil di kantor atau download:
+🔗 {{5}}
+
+Verifikasi dokumen: Scan QR code pada dokumen
+
+Terima kasih,
+DPMPTSP Kabupaten Karo</field>
+        <field name="footer_text">DPMPTSP Kabupaten Karo</field>
+        <field name="sequence">10</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template izin_selesai_diproses -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'izin_selesai_diproses')]"/>
+
+    <!-- Variabel untuk Template Izin Selesai -->
+    <record id="template_izin_selesai_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_izin_selesai_diproses"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">applicant_name</field>
+        <field name="demo_value">Bapak/Ibu Pemohon</field>
+    </record>
+    <record id="template_izin_selesai_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_izin_selesai_diproses"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_type_name</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_izin_selesai_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_izin_selesai_diproses"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_number</field>
+        <field name="demo_value">503/DPMPTSP/2024</field>
+    </record>
+    <record id="template_izin_selesai_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_izin_selesai_diproses"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">issue_date</field>
+        <field name="demo_value">15 November 2024</field>
+    </record>
+    <record id="template_izin_selesai_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_izin_selesai_diproses"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/download/503</field>
+    </record>
+
+    <!-- Template 2: Dokumen Baru untuk Tandatangan -->
+    <record id="template_dokumen_baru_tandatangan" model="whatsapp.template">
+        <field name="name">Dokumen Baru untuk Tandatangan</field>
+        <field name="template_name">dokumen_baru_untuk_tandatangan</field>
+        <field name="model_id" ref="sicantik_tte.model_sicantik_document"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">🔔 Notifikasi Dokumen Baru
+
+Ada {{1}} dokumen menunggu tanda tangan digital:
+
+1. {{2}} - {{3}}
+   No: {{4}}
+
+Silakan proses melalui dashboard:
+🔗 {{5}}
+
+SICANTIK Companion</field>
+        <field name="footer_text">SICANTIK Companion</field>
+        <field name="sequence">20</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template dokumen_baru_untuk_tandatangan -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'dokumen_baru_untuk_tandatangan')]"/>
+
+    <!-- Variabel untuk Template Dokumen Baru -->
+    <record id="template_dokumen_baru_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_baru_tandatangan"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">3</field>
+    </record>
+    <record id="template_dokumen_baru_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_baru_tandatangan"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_type_id.name</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_dokumen_baru_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_baru_tandatangan"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_id.applicant_name</field>
+        <field name="demo_value">PT. Contoh Perusahaan</field>
+    </record>
+    <record id="template_dokumen_baru_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_baru_tandatangan"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_id.registration_id</field>
+        <field name="demo_value">REG-2024-001</field>
+    </record>
+    <record id="template_dokumen_baru_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_baru_tandatangan"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/dashboard</field>
+    </record>
+
+    <!-- Template 3: Dokumen Perlu Approval -->
+    <!-- Note: phone_field menggunakan create_uid.mobile sebagai fallback -->
+    <!-- Nomor approver akan di-set manual di code -->
+    <record id="template_dokumen_perlu_approval" model="whatsapp.template">
+        <field name="name">Dokumen Perlu Approval</field>
+        <field name="template_name">dokumen_perlu_approval</field>
+        <field name="model_id" ref="sicantik_tte.model_sicantik_document"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">🔐 Approval Required
+
+Yth. {{1}},
+
+Dokumen berikut memerlukan persetujuan Anda:
+📋 {{2}}
+👤 Pemohon: {{3}}
+📄 No: {{4}}
+
+Approve via:
+🔗 {{5}}
+
+SICANTIK Companion</field>
+        <field name="footer_text">SICANTIK Companion</field>
+        <field name="sequence">30</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template dokumen_perlu_approval -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'dokumen_perlu_approval')]"/>
+
+    <!-- Variabel untuk Template Approval -->
+    <record id="template_approval_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_perlu_approval"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">Bapak Kepala Dinas</field>
+    </record>
+    <record id="template_approval_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_perlu_approval"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_approval_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_perlu_approval"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">PT. Contoh Perusahaan</field>
+    </record>
+    <record id="template_approval_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_perlu_approval"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">503/DPMPTSP/2024</field>
+    </record>
+    <record id="template_approval_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_dokumen_perlu_approval"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/approval/123</field>
+    </record>
+
+    <!-- Template 4: Update Status Perizinan -->
+    <record id="template_update_status_perizinan" model="whatsapp.template">
+        <field name="name">Update Status Perizinan</field>
+        <field name="template_name">update_status_perizinan</field>
+        <field name="model_id" ref="sicantik_connector.model_sicantik_permit"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">📢 Update Status Perizinan
+
+No: {{1}}
+Status: {{2}} → {{3}}
+Waktu: {{4}}
+
+Detail: {{5}}
+
+DPMPTSP Kab. Karo</field>
+        <field name="footer_text">DPMPTSP Kab. Karo</field>
+        <field name="sequence">40</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template update_status_perizinan -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'update_status_perizinan')]"/>
+
+    <!-- Variabel untuk Template Update Status -->
+    <record id="template_status_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_update_status_perizinan"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">registration_id</field>
+        <field name="demo_value">REG-2024-001</field>
+    </record>
+    <record id="template_status_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_update_status_perizinan"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">Draft</field>
+    </record>
+    <record id="template_status_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_update_status_perizinan"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">status</field>
+        <field name="demo_value">Active</field>
+    </record>
+    <record id="template_status_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_update_status_perizinan"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">write_date</field>
+        <field name="demo_value">15 November 2024 10:30</field>
+    </record>
+    <record id="template_status_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_update_status_perizinan"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">Dokumen telah diverifikasi dan disetujui</field>
+    </record>
+
+    <!-- Template 5: Reminder Dokumen Pending -->
+    <record id="template_reminder_dokumen_pending" model="whatsapp.template">
+        <field name="name">Reminder Dokumen Pending</field>
+        <field name="template_name">reminder_dokumen_pending</field>
+        <field name="model_id" ref="sicantik_tte.model_sicantik_document"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">⏰ Reminder: Dokumen Pending
+
+{{1}} dokumen belum diproses:
+
+- {{2}} ({{3}})
+  Pending sejak: {{4}}
+
+Segera proses: {{5}}
+
+SICANTIK Companion</field>
+        <field name="footer_text">SICANTIK Companion</field>
+        <field name="sequence">50</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template reminder_dokumen_pending -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'reminder_dokumen_pending')]"/>
+
+    <!-- Variabel untuk Template Reminder -->
+    <record id="template_reminder_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_reminder_dokumen_pending"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">5</field>
+    </record>
+    <record id="template_reminder_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_reminder_dokumen_pending"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_type_id.name</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_reminder_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_reminder_dokumen_pending"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_id.applicant_name</field>
+        <field name="demo_value">PT. Contoh Perusahaan</field>
+    </record>
+    <record id="template_reminder_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_reminder_dokumen_pending"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">write_date</field>
+        <field name="demo_value">14 November 2024</field>
+    </record>
+    <record id="template_reminder_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_reminder_dokumen_pending"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/dashboard</field>
+    </record>
+
+    <!-- Template 6: Peringatan Masa Berlaku Izin -->
+    <record id="template_peringatan_masa_berlaku_izin" model="whatsapp.template">
+        <field name="name">Peringatan Masa Berlaku Izin</field>
+        <field name="template_name">peringatan_masa_berlaku_izin</field>
+        <field name="model_id" ref="sicantik_connector.model_sicantik_permit"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">⚠️ Pengingat Masa Berlaku Izin
+
+Yth. Bapak/Ibu {{1}},
+
+Izin Anda akan segera berakhir:
+📋 Jenis: {{2}}
+📄 No. Surat: {{3}}
+📅 Berlaku s/d: {{4}}
+⏰ Sisa waktu: {{5}} hari
+
+Segera ajukan perpanjangan untuk menghindari:
+❌ Izin tidak berlaku
+❌ Sanksi administrasi
+❌ Proses ulang dari awal
+
+Ajukan perpanjangan:
+🔗 {{6}}
+
+Hubungi kami:
+📞 {{7}}
+
+DPMPTSP Kabupaten Karo</field>
+        <field name="footer_text">DPMPTSP Kabupaten Karo</field>
+        <field name="sequence">60</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template peringatan_masa_berlaku_izin -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'peringatan_masa_berlaku_izin')]"/>
+
+    <!-- Variabel untuk Template Peringatan Masa Berlaku -->
+    <record id="template_expiry_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">applicant_name</field>
+        <field name="demo_value">Bapak/Ibu Pemohon</field>
+    </record>
+    <record id="template_expiry_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_type_name</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_expiry_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_number</field>
+        <field name="demo_value">503/DPMPTSP/2024</field>
+    </record>
+    <record id="template_expiry_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">expiry_date</field>
+        <field name="demo_value">15 Februari 2025</field>
+    </record>
+    <record id="template_expiry_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">days_until_expiry</field>
+        <field name="demo_value">30</field>
+    </record>
+    <record id="template_expiry_var6" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{6}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/perpanjangan/REG-2024-001</field>
+    </record>
+    <record id="template_expiry_var7" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_peringatan_masa_berlaku_izin"/>
+        <field name="name">{{7}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">0628-20XXX</field>
+    </record>
+
+    <!-- Template 7: Perpanjangan Izin Disetujui -->
+    <record id="template_perpanjangan_izin_disetujui" model="whatsapp.template">
+        <field name="name">Perpanjangan Izin Disetujui</field>
+        <field name="template_name">perpanjangan_izin_disetujui</field>
+        <field name="model_id" ref="sicantik_connector.model_sicantik_permit"/>
+        <field name="phone_field">mobile</field>
+        <field name="lang_code">id</field>
+        <field name="template_type">utility</field>
+        <field name="header_type">none</field>
+        <field name="body">✅ Perpanjangan Izin Disetujui
+
+Yth. Bapak/Ibu {{1}},
+
+Perpanjangan izin Anda telah disetujui:
+📋 Jenis: {{2}}
+📄 No. Surat Baru: {{3}}
+📅 Berlaku: {{4}} s/d {{5}}
+🔄 Masa berlaku: {{6}} tahun
+
+Dokumen perpanjangan dapat diambil di kantor atau download:
+🔗 {{7}}
+
+Verifikasi dokumen: Scan QR code pada dokumen
+
+Terima kasih atas kepatuhan Anda.
+
+DPMPTSP Kabupaten Karo</field>
+        <field name="footer_text">DPMPTSP Kabupaten Karo</field>
+        <field name="sequence">70</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Hapus variabel lama untuk template perpanjangan_izin_disetujui -->
+    <delete model="whatsapp.template.variable" search="[('wa_template_id.template_name', '=', 'perpanjangan_izin_disetujui')]"/>
+
+    <!-- Variabel untuk Template Perpanjangan -->
+    <record id="template_renewal_var1" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{1}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">applicant_name</field>
+        <field name="demo_value">Bapak/Ibu Pemohon</field>
+    </record>
+    <record id="template_renewal_var2" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{2}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_type_name</field>
+        <field name="demo_value">Izin Mendirikan Bangunan</field>
+    </record>
+    <record id="template_renewal_var3" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{3}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">permit_number</field>
+        <field name="demo_value">503/DPMPTSP/2025</field>
+    </record>
+    <record id="template_renewal_var4" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{4}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">issue_date</field>
+        <field name="demo_value">15 Februari 2025</field>
+    </record>
+    <record id="template_renewal_var5" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{5}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">field</field>
+        <field name="field_name">expiry_date</field>
+        <field name="demo_value">15 Februari 2027</field>
+    </record>
+    <record id="template_renewal_var6" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{6}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">2</field>
+    </record>
+    <record id="template_renewal_var7" model="whatsapp.template.variable">
+        <field name="wa_template_id" ref="template_perpanjangan_izin_disetujui"/>
+        <field name="name">{{7}}</field>
+        <field name="line_type">body</field>
+        <field name="field_type">free_text</field>
+        <field name="demo_value">https://perizinan.karokab.go.id/download/503</field>
+    </record>
+
+</odoo>
+

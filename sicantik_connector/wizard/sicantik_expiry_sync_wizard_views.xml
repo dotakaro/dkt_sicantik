@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SICANTIK Expiry Sync Wizard Form View -->
+    <record id="view_sicantik_expiry_sync_wizard_form" model="ir.ui.view">
+        <field name="name">sicantik.expiry.sync.wizard.form</field>
+        <field name="model">sicantik.expiry.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sync Expiry Dates">
+                <group>
+                    <group>
+                        <field name="connector_id" readonly="1"/>
+                        <field name="permits_without_expiry" readonly="1"/>
+                        <field name="estimated_duration" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="max_permits" placeholder="Leave empty to sync all"/>
+                    </group>
+                </group>
+                
+                <div class="alert alert-warning" role="alert" style="margin: 16px 0;">
+                    <h4>⚠️ Workaround Solution</h4>
+                    <p>
+                        This sync uses a temporary workaround solution that makes multiple API calls.
+                        Performance: ~0.15 seconds per permit.
+                    </p>
+                    <p>
+                        <strong>Note:</strong> This will be replaced with an optimized solution 
+                        after the API is updated (100x faster).
+                    </p>
+                </div>
+                
+                <div class="alert alert-info" role="alert" style="margin: 16px 0;">
+                    <h4>ℹ️ How it works</h4>
+                    <ul>
+                        <li>Step 1: Get permits without expiry date</li>
+                        <li>Step 2: For each permit, call API to get expiry date</li>
+                        <li>Step 3: Update permit records with expiry dates</li>
+                    </ul>
+                    <p>
+                        Progress will be logged every 50 permits.
+                        Check the server logs for detailed progress.
+                    </p>
+                </div>
+                
+                <footer>
+                    <button name="action_test_sync" type="object" string="Test Sync (10 permits)" class="btn-info"/>
+                    <button name="action_sync" type="object" string="Start Full Sync" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

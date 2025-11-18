@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SICANTIK Connector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #667eea;
+            margin-top: 0;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .feature-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .badge-success { background: #10b981; color: white; }
+        .badge-warning { background: #f59e0b; color: white; }
+        .badge-info { background: #3b82f6; color: white; }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏛️ SICANTIK Connector</h1>
+        <p>Integration with SICANTIK Perizinan System</p>
+        <div style="margin-top: 20px;">
+            <span class="badge badge-success">v1.0.0</span>
+            <span class="badge badge-info">Odoo 18</span>
+            <span class="badge badge-warning">Production Ready</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Overview</h2>
+        <p>
+            SICANTIK Connector provides seamless integration between Odoo and SICANTIK 
+            (Sistem Informasi Perizinan Kabupaten Karo), enabling automated permit 
+            management, expiry tracking, and WhatsApp notifications.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>✨ Key Features</h2>
+        <div class="feature">
+            <div class="feature-icon">🔌</div>
+            <div>
+                <strong>API Integration</strong><br>
+                Direct connection to SICANTIK production server
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔄</div>
+            <div>
+                <strong>Automated Sync</strong><br>
+                Automatic data synchronization every 15 minutes
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📅</div>
+            <div>
+                <strong>Expiry Tracking</strong><br>
+                4-tier notification system (90/60/30/7 days)
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📊</div>
+            <div>
+                <strong>Dashboard & Statistics</strong><br>
+                Comprehensive permit management interface
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">⚙️</div>
+            <div>
+                <strong>Cron Jobs</strong><br>
+                Automated daily tasks for expiry monitoring
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <div>
+                <strong>Security</strong><br>
+                Role-based access control and data validation
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🚀 Quick Start</h2>
+        <ol>
+            <li>Install the module from Apps menu</li>
+            <li>Go to SICANTIK > Configuration > API Configuration</li>
+            <li>Click "Test Connection" to verify API access</li>
+            <li>Click "Sync Now" to fetch initial data</li>
+            <li>View permits in SICANTIK > Permits menu</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>📦 What's Included</h2>
+        <ul>
+            <li>API Configuration Management</li>
+            <li>Permit Data Synchronization</li>
+            <li>Permit Type Master Data</li>
+            <li>Expiry Date Monitoring</li>
+            <li>Partner Integration</li>
+            <li>Automated Cron Jobs</li>
+            <li>Comprehensive Dashboard</li>
+            <li>Search & Filters</li>
+            <li>Statistics & Reports</li>
+            <li>Error Handling & Logging</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>⚠️ Workaround Solution</h2>
+        <p>
+            The current version uses a workaround solution for expiry date synchronization 
+            that makes multiple API calls. Performance: ~0.15 seconds per permit.
+        </p>
+        <p>
+            <strong>Future Optimization:</strong> After the SICANTIK API is updated to 
+            include expiry dates in the main endpoint, performance will improve by 100x 
+            (0.0015 seconds per permit).
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>📞 Support</h2>
+        <p>
+            For issues, questions, or feature requests, please contact the 
+            SICANTIK Development Team or refer to the comprehensive README.md 
+            file included with the module.
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>
+            <strong>SICANTIK Connector v1.0.0</strong><br>
+            Developed by SICANTIK Development Team<br>
+            Licensed under LGPL-3
+        </p>
+    </div>
+</body>
+</html>
+

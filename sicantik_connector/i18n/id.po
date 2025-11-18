@@ -1,0 +1,330 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * sicantik_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-29 10:00:00+0000\n"
+"PO-Revision-Date: 2025-10-29 10:00:00+0000\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: sicantik_connector
+#: model:ir.actions.act_window,name:sicantik_connector.action_sicantik_config
+#: model:ir.ui.menu,name:sicantik_connector.menu_sicantik_config
+msgid "API Configuration"
+msgstr "Konfigurasi API"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__active
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__active
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__applicant_address
+msgid "Applicant Address"
+msgstr "Alamat Pemohon"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__applicant_name
+msgid "Applicant Name"
+msgstr "Nama Pemohon"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__applicant_phone
+msgid "Applicant Phone"
+msgstr "Telepon Pemohon"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__api_password
+msgid "API Password"
+msgstr "Password API"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__api_url
+msgid "API URL"
+msgstr "URL API"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__api_username
+msgid "API Username"
+msgstr "Username API"
+
+#. module: sicantik_connector
+#: model:ir.ui.menu,name:sicantik_connector.menu_sicantik_configuration
+msgid "Configuration"
+msgstr "Konfigurasi"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__create_date
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__create_date
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__create_date
+msgid "Created on"
+msgstr "Dibuat pada"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__create_uid
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__create_uid
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__create_uid
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__days_until_expiry
+msgid "Days Until Expiry"
+msgstr "Hari Hingga Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__expiry_date
+msgid "Expiry Date"
+msgstr "Tanggal Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__expiry_status
+msgid "Expiry Status"
+msgstr "Status Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__issue_date
+msgid "Issue Date"
+msgstr "Tanggal Terbit"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__last_error
+msgid "Last Error"
+msgstr "Error Terakhir"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__last_sync_date
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__last_sync_date
+msgid "Last Sync"
+msgstr "Sinkronisasi Terakhir"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__last_write_date
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__last_write_date
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__last_write_date
+msgid "Last Updated on"
+msgstr "Terakhir Diperbarui"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__last_write_uid
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__last_write_uid
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit_type__last_write_uid
+msgid "Last Updated by"
+msgstr "Terakhir Diperbarui oleh"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__notification_sent
+msgid "Notification Sent"
+msgstr "Notifikasi Terkirim"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__partner_id
+msgid "Contact"
+msgstr "Kontak"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__permit_number
+msgid "Permit Number"
+msgstr "Nomor Izin"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__permit_type_name
+msgid "Permit Type"
+msgstr "Jenis Izin"
+
+#. module: sicantik_connector
+#: model:ir.actions.act_window,name:sicantik_connector.action_sicantik_permit
+#: model:ir.ui.menu,name:sicantik_connector.menu_sicantik_permits
+msgid "Permits"
+msgstr "Data Perizinan"
+
+#. module: sicantik_connector
+#: model:ir.actions.act_window,name:sicantik_connector.action_sicantik_permit_type
+#: model:ir.ui.menu,name:sicantik_connector.menu_sicantik_permit_types
+msgid "Permit Types"
+msgstr "Jenis Perizinan"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__rate_limit_enabled
+msgid "Enable Rate Limiting"
+msgstr "Aktifkan Pembatasan Rate"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_config__rate_limit_requests
+msgid "Requests per Minute"
+msgstr "Permintaan per Menit"
+
+#. module: sicantik_connector
+#: model:ir.model,name:sicantik_connector.model_sicantik_config
+msgid "SICANTIK API Configuration"
+msgstr "Konfigurasi API SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.model,name:sicantik_connector.model_sicantik_connector
+msgid "SICANTIK API Connector"
+msgstr "Konektor API SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.model,name:sicantik_connector.model_sicantik_permit
+msgid "SICANTIK Permit"
+msgstr "Izin SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.model,name:sicantik_connector.model_sicantik_permit_type
+msgid "SICANTIK Permit Type"
+msgstr "Jenis Izin SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_sicantik_permit__status
+msgid "Status"
+msgstr "Status"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__status__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__status__draft
+msgid "Draft"
+msgstr "Draft"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__status__expired
+msgid "Expired"
+msgstr "Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__status__renewed
+msgid "Renewed"
+msgstr "Diperpanjang"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__expiry_status__normal
+msgid "Normal"
+msgstr "Normal"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__expiry_status__warning
+msgid "Warning (< 60 days)"
+msgstr "Peringatan (< 60 hari)"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__expiry_status__critical
+msgid "Critical (< 30 days)"
+msgstr "Kritis (< 30 hari)"
+
+#. module: sicantik_connector
+#: model:ir.model.fields.selection,name:sicantik_connector.selection__sicantik_permit__expiry_status__expired
+msgid "Expired"
+msgstr "Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Test Connection"
+msgstr "Tes Koneksi"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Sync Now"
+msgstr "Sinkronkan Sekarang"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Connection Status"
+msgstr "Status Koneksi"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Rate Limiting"
+msgstr "Pembatasan Rate"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Mark as Renewed"
+msgstr "Tandai Diperpanjang"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "View History"
+msgstr "Lihat Riwayat"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Test Notification"
+msgstr "Tes Notifikasi"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Permit Information"
+msgstr "Informasi Izin"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Applicant Information"
+msgstr "Informasi Pemohon"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Expiry Information"
+msgstr "Informasi Kadaluarsa"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Renewal Information"
+msgstr "Informasi Perpanjangan"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Notification Status"
+msgstr "Status Notifikasi"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Create your first SICANTIK configuration"
+msgstr "Buat konfigurasi SICANTIK pertama Anda"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_config_form
+msgid "Configure the connection to SICANTIK API"
+msgstr "Konfigurasikan koneksi ke API SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "No permits found"
+msgstr "Tidak ada izin ditemukan"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_form
+msgid "Click to create a new permit"
+msgstr "Klik untuk membuat izin baru"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_type_form
+msgid "No permit types found"
+msgstr "Tidak ada jenis izin ditemukan"
+
+#. module: sicantik_connector
+#: model:ir.ui.view,arch_db:sicantik_connector.view_sicantik_permit_type_form
+msgid "Permit types will be automatically synced from SICANTIK"
+msgstr "Jenis izin akan disinkronkan otomatis dari SICANTIK"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_res_partner__x_whatsapp_number
+msgid "WhatsApp Number"
+msgstr "Nomor WhatsApp"
+
+#. module: sicantik_connector
+#: model:ir.model.fields,field_description:sicantik_connector.field_res_partner__permit_count
+msgid "Permit Count"
+msgstr "Jumlah Izin"
+

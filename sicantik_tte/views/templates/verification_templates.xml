@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template untuk halaman verifikasi dokumen -->
+    <template id="verification_page" name="Verification Page">
+        <t t-call="web.frontend_layout">
+            <div class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <!-- Header -->
+                        <div class="card shadow-lg mb-4">
+                            <div class="card-header bg-success text-white text-center py-4">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-check-circle"></i> Dokumen Terverifikasi
+                                </h2>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <!-- Status Badge -->
+                                <div class="text-center mb-4">
+                                    <span class="badge badge-success p-3" style="font-size: 1.2rem;">
+                                        <i class="fa fa-shield"></i> Dokumen Sah &amp; Tertandatangani Digital
+                                    </span>
+                                </div>
+                                
+                                <!-- Document Information -->
+                                <h4 class="border-bottom pb-2 mb-3">Informasi Dokumen</h4>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Nomor Dokumen:</div>
+                                    <div class="col-md-8">
+                                        <span class="badge badge-primary"><t t-esc="document.document_number"/></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Nama Dokumen:</div>
+                                    <div class="col-md-8"><t t-esc="document.name"/></div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Nomor Izin:</div>
+                                    <div class="col-md-8"><t t-esc="document.permit_number"/></div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Jenis Izin:</div>
+                                    <div class="col-md-8"><t t-esc="document.permit_type_id.name"/></div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Tanggal Tanda Tangan:</div>
+                                    <div class="col-md-8">
+                                        <t t-esc="document.signature_date" t-options="{'widget': 'datetime'}"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Ditandatangani Oleh:</div>
+                                    <div class="col-md-8"><t t-esc="document.signer_id.name"/></div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Metode Tanda Tangan:</div>
+                                    <div class="col-md-8">
+                                        <span class="badge badge-info">BSRE TTE (Balai Sertifikat Elektronik)</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Security Information -->
+                                <h4 class="border-bottom pb-2 mb-3 mt-4">Informasi Keamanan</h4>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Hash Dokumen (SHA256):</div>
+                                    <div class="col-md-8">
+                                        <code style="font-size: 0.85rem; word-break: break-all;"><t t-esc="document.file_hash"/></code>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Ukuran File:</div>
+                                    <div class="col-md-8">
+                                        <t t-esc="'%.2f' % (document.file_size / 1024)"/> KB
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4 font-weight-bold">Jumlah Verifikasi:</div>
+                                    <div class="col-md-8">
+                                        <span class="badge badge-secondary"><t t-esc="document.verification_count"/> kali</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Download Button -->
+                                <div class="text-center mt-4 pt-4 border-top">
+                                    <a t-attf-href="/web/content/sicantik.document/#{document.id}/download?filename=#{document.original_filename}" 
+                                       class="btn btn-lg btn-primary">
+                                        <i class="fa fa-download"></i> Download Dokumen Tertandatangani
+                                    </a>
+                                </div>
+                                
+                                <!-- Info Footer -->
+                                <div class="alert alert-info mt-4 mb-0">
+                                    <i class="fa fa-info-circle"></i>
+                                    <strong>Catatan:</strong> Dokumen ini telah ditandatangani secara digital menggunakan BSRE (Balai Sertifikat Elektronik) 
+                                    dan telah terverifikasi keasliannya. Hash SHA256 dapat digunakan untuk memverifikasi integritas dokumen.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Template untuk dokumen tidak ditemukan -->
+    <template id="verification_not_found" name="Verification Not Found">
+        <t t-call="web.frontend_layout">
+            <div class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header bg-warning text-white text-center py-4">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-exclamation-triangle"></i> Dokumen Tidak Ditemukan
+                                </h2>
+                            </div>
+                            <div class="card-body text-center p-5">
+                                <p class="lead">
+                                    Dokumen dengan nomor <strong><t t-esc="document_number"/></strong> tidak ditemukan 
+                                    atau belum ditandatangani.
+                                </p>
+                                <p>
+                                    Pastikan nomor dokumen yang Anda scan sudah benar dan dokumen telah ditandatangani secara digital.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Template untuk error verifikasi -->
+    <template id="verification_error" name="Verification Error">
+        <t t-call="web.frontend_layout">
+            <div class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header bg-danger text-white text-center py-4">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-times-circle"></i> Error Verifikasi
+                                </h2>
+                            </div>
+                            <div class="card-body text-center p-5">
+                                <p class="lead">
+                                    Terjadi kesalahan saat memverifikasi dokumen.
+                                </p>
+                                <p>
+                                    <code><t t-esc="error"/></code>
+                                </p>
+                                <p>
+                                    Silakan coba lagi atau hubungi administrator sistem.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+

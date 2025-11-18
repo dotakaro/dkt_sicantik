@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- 
+        Default BSRE Configuration 
+        noupdate="1" berarti data ini hanya di-create saat install pertama kali
+        dan TIDAK akan di-update/overwrite saat upgrade module
+    -->
+    <record id="bsre_config_default" model="bsre.config">
+        <field name="name">BSRE Karo Production</field>
+        <field name="api_url">http://tte.karokab.go.id</field>
+        <field name="username">your_basic_auth_username</field>
+        <field name="password">your_basic_auth_password</field>
+        <field name="signing_identifier_type">nik</field>
+        <field name="signing_identifier">1234567890123456</field>
+        <field name="use_otp" eval="False"/>
+        <field name="signature_position">bottom_right</field>
+        <field name="signature_page">last</field>
+        <field name="signature_visible" eval="True"/>
+        <field name="api_timeout">60</field>
+        <field name="max_retry">3</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
+

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sicantik_permit_whatsapp_user,sicantik.permit.whatsapp.user,model_sicantik_permit,base.group_user,1,0,0,0
+access_sicantik_document_whatsapp_user,sicantik.document.whatsapp.user,model_sicantik_document,base.group_user,1,0,0,0
+access_sicantik_whatsapp_cleanup_wizard,sicantik.whatsapp.cleanup.wizard,model_sicantik_whatsapp_cleanup_wizard,base.group_system,1,1,1,1
+access_whatsapp_opt_in_manager,whatsapp.opt.in.manager,model_whatsapp_opt_in_manager,base.group_user,1,0,0,0
+access_whatsapp_export_phone_numbers_wizard,whatsapp.export.phone.numbers.wizard,model_whatsapp_export_phone_numbers_wizard,base.group_user,1,1,1,0
+

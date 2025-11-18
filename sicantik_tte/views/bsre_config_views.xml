@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- BSRE Config Form View -->
+    <record id="view_bsre_config_form" model="ir.ui.view">
+        <field name="name">bsre.config.form</field>
+        <field name="model">bsre.config</field>
+        <field name="arch" type="xml">
+            <form string="Konfigurasi BSRE">
+                <header>
+                    <button name="action_test_connection" type="object" string="Tes Koneksi" 
+                            class="btn-primary"/>
+                    <button name="action_view_statistics" type="object" string="Lihat Statistik" 
+                            class="btn-secondary"/>
+                    <field name="connection_status" widget="badge"
+                           decoration-success="connection_status == 'connected'"
+                           decoration-danger="connection_status == 'error'"
+                           decoration-muted="connection_status == 'disconnected'"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_statistics" type="object" class="oe_stat_button" icon="fa-pencil">
+                            <field name="total_signatures" widget="statinfo" string="Total Tanda Tangan"/>
+                        </button>
+                        <button name="action_view_statistics" type="object" class="oe_stat_button" icon="fa-check">
+                            <field name="successful_signatures" widget="statinfo" string="Berhasil"/>
+                        </button>
+                        <button name="action_view_statistics" type="object" class="oe_stat_button" icon="fa-times">
+                            <field name="failed_signatures" widget="statinfo" string="Gagal"/>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Nama Konfigurasi"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group string="API Configuration (Basic Auth)">
+                            <field name="api_url"/>
+                            <field name="username"/>
+                            <field name="password" password="True"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Signing Credentials">
+                            <field name="signing_identifier_type"/>
+                            <field name="signing_identifier" 
+                                   placeholder="NIK atau Email"/>
+                            <field name="use_otp"/>
+                            <p colspan="2" class="text-muted">
+                                Note: Passphrase akan diminta saat proses signing untuk keamanan.
+                            </p>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Certificate Information">
+                            <field name="certificate_id" readonly="1"/>
+                            <field name="certificate_owner" readonly="1"/>
+                            <field name="certificate_valid_until" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Signature Settings" name="signature">
+                            <group>
+                                <group string="Visibility &amp; Appearance">
+                                    <field name="signature_visible"/>
+                                    <field name="signature_image" widget="image" 
+                                           class="oe_avatar" 
+                                           options="{'size': [150, 100]}"
+                                           invisible="signature_visible == False"/>
+                                    <field name="signature_image_filename" invisible="1"/>
+                                    <p colspan="2" class="text-muted" invisible="signature_visible == False">
+                                        Upload logo atau gambar tanda tangan (PNG dengan transparansi). 
+                                        Jika kosong, akan menggunakan placeholder transparan.
+                                    </p>
+                                </group>
+                                <group string="Position &amp; Page">
+                                    <field name="signature_page"/>
+                                    <field name="signature_position"/>
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <group string="Ukuran Signature">
+                                    <field name="signature_size"/>
+                                    <field name="signature_width" 
+                                           invisible="signature_size != 'custom'"
+                                           required="signature_size == 'custom'"/>
+                                    <field name="signature_height" 
+                                           invisible="signature_size != 'custom'"
+                                           required="signature_size == 'custom'"/>
+                                    <p colspan="2" class="text-muted">
+                                        <strong>📏 Preset (MAX Bounds):</strong><br/>
+                                        • Kecil: Max 80x60 px<br/>
+                                        • Sedang: Max 120x90 px (recommended)<br/>
+                                        • Besar: Max 160x120 px<br/>
+                                        • Ekstra Besar: Max 200x150 px<br/>
+                                        • Custom: Input manual<br/>
+                                        <br/>
+                                        <strong>✨ Aspect Ratio:</strong> Otomatis dipertahankan!<br/>
+                                        Gambar akan di-fit dalam bounds tanpa distorsi.<br/>
+                                        <em>Contoh: Logo 569x308 → preset Sedang → hasil 120x65</em>
+                                    </p>
+                                </group>
+                                <group string="Custom Position Override">
+                                    <field name="use_custom_position"/>
+                                    
+                                    <div colspan="2" invisible="use_custom_position == False">
+                                        <div class="alert alert-info" role="alert" style="margin-bottom: 15px;">
+                                            <strong>📐 Sistem Koordinat V2 API (A4 Portrait):</strong><br/>
+                                            • <strong>X (Horizontal):</strong> dari kiri → kanan (Range: 10 - 585)<br/>
+                                            • <strong>Y (Vertikal):</strong> dari atas → bawah (Range: 10 - 832)<br/>
+                                            • <strong>Page Size:</strong> 595 x 842 points (21 x 29.7 cm)<br/>
+                                            <br/>
+                                            <strong>⚠️ PENTING:</strong> Y=0 di ATAS! (Top-left origin)<br/>
+                                            <strong>✨ Quick Preset:</strong> Klik nilai di bawah untuk mengisi otomatis
+                                        </div>
+                                        
+                                        <table class="table table-sm table-bordered" style="margin-bottom: 10px;">
+                                            <thead style="background-color: #f8f9fa;">
+                                                <tr>
+                                                    <th style="text-align: center;">Posisi</th>
+                                                    <th style="text-align: center;">X (originX)</th>
+                                                    <th style="text-align: center;">Y (originY)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Kiri Atas</strong></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Tengah Atas</strong></td>
+                                                    <td style="text-align: center;"><code>250</code></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Kanan Atas</strong></td>
+                                                    <td style="text-align: center;"><code>475</code></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Kiri Tengah</strong></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                    <td style="text-align: center;"><code>381</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Center</strong></td>
+                                                    <td style="text-align: center;"><code>257</code></td>
+                                                    <td style="text-align: center;"><code>391</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Kanan Tengah</strong></td>
+                                                    <td style="text-align: center;"><code>475</code></td>
+                                                    <td style="text-align: center;"><code>381</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Kiri Bawah</strong></td>
+                                                    <td style="text-align: center;"><code>10</code></td>
+                                                    <td style="text-align: center;"><code>772</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Tengah Bawah</strong></td>
+                                                    <td style="text-align: center;"><code>250</code></td>
+                                                    <td style="text-align: center;"><code>772</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Kanan Bawah</strong></td>
+                                                    <td style="text-align: center;"><code>475</code></td>
+                                                    <td style="text-align: center;"><code>772</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                        <div class="alert alert-warning" role="alert" style="margin-bottom: 10px;">
+                                            <strong>⚠️ Catatan Koordinat Custom:</strong><br/>
+                                            • Koordinat di atas untuk signature <strong>120x90 px</strong> (medium)<br/>
+                                            • <strong>originX, originY</strong> = posisi TOP-LEFT corner signature<br/>
+                                            • Pastikan: originX + width ≤ 595<br/>
+                                            • Pastikan: originY + height ≤ 842<br/>
+                                            • Jika signature keluar halaman → ERROR 500!
+                                        </div>
+                                    </div>
+                                    
+                                    <field name="custom_position_x" 
+                                           string="Posisi X (Horizontal) - px"
+                                           invisible="use_custom_position == False"
+                                           required="use_custom_position == True"
+                                           placeholder="10 (kiri) - 257 (tengah) - 475 (kanan) [MAX: 585]"
+                                           style="font-size: 14px; font-weight: bold;"/>
+                                    
+                                    <field name="custom_position_y" 
+                                           string="Posisi Y (Vertikal) - px"
+                                           invisible="use_custom_position == False"
+                                           required="use_custom_position == True"
+                                           placeholder="10 (atas) - 391 (tengah) - 772 (bawah) [MAX: 832]"
+                                           style="font-size: 14px; font-weight: bold;"/>
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <group string="Timeout &amp; Retry">
+                                    <field name="api_timeout"/>
+                                    <field name="max_retry"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Statistics" name="statistics">
+                            <group>
+                                <field name="last_signature_date" readonly="1"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Connection Status" name="status">
+                            <group>
+                                <field name="last_error" widget="text" readonly="1" 
+                                       invisible="last_error == False"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- BSRE Config List View -->
+    <record id="view_bsre_config_tree" model="ir.ui.view">
+        <field name="name">bsre.config.tree</field>
+        <field name="model">bsre.config</field>
+        <field name="arch" type="xml">
+            <list string="Konfigurasi BSRE">
+                <field name="name"/>
+                <field name="api_url"/>
+                <field name="certificate_owner"/>
+                <field name="certificate_valid_until"/>
+                <field name="connection_status" widget="badge"
+                       decoration-success="connection_status == 'connected'"
+                       decoration-danger="connection_status == 'error'"
+                       decoration-warning="connection_status == 'disconnected'"/>
+                <field name="total_signatures"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- BSRE Config Action -->
+    <record id="action_bsre_config" model="ir.actions.act_window">
+        <field name="name">Konfigurasi BSRE</field>
+        <field name="res_model">bsre.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Buat konfigurasi BSRE pertama Anda
+            </p>
+            <p>
+                Konfigurasikan koneksi ke BSRE API untuk tanda tangan digital.
+            </p>
+        </field>
+    </record>
+</odoo>
+

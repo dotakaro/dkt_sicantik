@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sign Passphrase Wizard Form -->
+    <record id="view_sign_passphrase_wizard_form" model="ir.ui.view">
+        <field name="name">sign.passphrase.wizard.form</field>
+        <field name="model">sign.passphrase.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Tandatangani Dokumen">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle"/> 
+                        <strong>Keamanan:</strong> Passphrase Anda tidak akan disimpan di sistem.
+                    </div>
+                    
+                    <group>
+                        <group string="Informasi Dokumen">
+                            <field name="document_number" readonly="1"/>
+                            <field name="document_name" readonly="1"/>
+                        </group>
+                        <group string="Konfigurasi Signing">
+                            <field name="bsre_config_id" invisible="1"/>
+                            <field name="signing_identifier" string="Akan ditandatangani dengan"/>
+                        </group>
+                    </group>
+                    
+                    <separator string="Masukkan Passphrase"/>
+                    
+                    <group>
+                        <group>
+                            <field name="passphrase" password="True" 
+                                   placeholder="Masukkan passphrase Anda"/>
+                        </group>
+                        <group>
+                            <field name="confirm_passphrase" password="True" 
+                                   placeholder="Konfirmasi passphrase"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <field name="document_id" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_sign" type="object" string="Tandatangani" 
+                            class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Batal" 
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Sign Passphrase Wizard Action -->
+    <record id="action_sign_passphrase_wizard" model="ir.actions.act_window">
+        <field name="name">Tandatangani Dokumen</field>
+        <field name="res_model">sign.passphrase.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_sign_passphrase_wizard_form"/>
+    </record>
+</odoo>
+

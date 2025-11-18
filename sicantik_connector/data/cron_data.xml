@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Cron: Update Expired Permits Status (Daily at 00:00) -->
+    <record id="cron_update_expired_permits" model="ir.cron">
+        <field name="name">SICANTIK: Update Expired Permits</field>
+        <field name="model_id" ref="model_sicantik_permit"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_update_expired_permits()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="priority">5</field>
+    </record>
+
+    <!-- Cron: Sync Expiry Dates (Daily at 02:00) -->
+    <record id="cron_sync_expiry_dates" model="ir.cron">
+        <field name="name">SICANTIK: Sync Expiry Dates (Workaround)</field>
+        <field name="model_id" ref="model_sicantik_connector"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_sync_expiry_dates()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="priority">10</field>
+    </record>
+
+    <!-- Cron: Check Expiring Permits (Daily at 09:00) -->
+    <record id="cron_check_expiring_permits" model="ir.cron">
+        <field name="name">SICANTIK: Check Expiring Permits</field>
+        <field name="model_id" ref="model_sicantik_permit"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_check_expiring_permits()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="priority">15</field>
+    </record>
+</odoo>
+

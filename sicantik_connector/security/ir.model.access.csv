@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sicantik_config_user,sicantik.config.user,model_sicantik_config,base.group_user,1,0,0,0
+access_sicantik_config_manager,sicantik.config.manager,model_sicantik_config,base.group_system,1,1,1,1
+access_sicantik_connector_user,sicantik.connector.user,model_sicantik_connector,base.group_user,1,0,0,0
+access_sicantik_connector_manager,sicantik.connector.manager,model_sicantik_connector,base.group_system,1,1,1,1
+access_sicantik_permit_user,sicantik.permit.user,model_sicantik_permit,base.group_user,1,1,1,0
+access_sicantik_permit_manager,sicantik.permit.manager,model_sicantik_permit,base.group_system,1,1,1,1
+access_sicantik_permit_type_user,sicantik.permit.type.user,model_sicantik_permit_type,base.group_user,1,0,0,0
+access_sicantik_permit_type_manager,sicantik.permit.type.manager,model_sicantik_permit_type,base.group_system,1,1,1,1
+access_sicantik_expiry_sync_wizard_user,sicantik.expiry.sync.wizard.user,model_sicantik_expiry_sync_wizard,base.group_user,1,1,1,1
+access_minio_connector_user,minio.connector.user,model_minio_connector,base.group_user,1,0,0,0
+access_minio_connector_manager,minio.connector.manager,model_minio_connector,base.group_system,1,1,1,1
+

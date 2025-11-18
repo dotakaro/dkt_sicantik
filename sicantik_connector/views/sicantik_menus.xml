@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_sicantik_root"
+              name="SICANTIK"
+              sequence="10"
+              web_icon="sicantik_connector,static/description/icon.png"/>
+
+    <!-- Main Menus -->
+    <menuitem id="menu_sicantik_permits"
+              name="Data Perizinan"
+              parent="menu_sicantik_root"
+              action="action_sicantik_permit"
+              sequence="10"/>
+
+    <menuitem id="menu_sicantik_permit_types"
+              name="Jenis Perizinan"
+              parent="menu_sicantik_root"
+              action="action_sicantik_permit_type"
+              sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_sicantik_configuration"
+              name="Konfigurasi"
+              parent="menu_sicantik_root"
+              sequence="100"/>
+
+    <menuitem id="menu_sicantik_config"
+              name="Konfigurasi API"
+              parent="menu_sicantik_configuration"
+              action="action_sicantik_config"
+              sequence="10"/>
+    
+    <menuitem id="menu_minio_connector"
+              name="MinIO Storage"
+              parent="menu_sicantik_configuration"
+              action="action_minio_connector"
+              sequence="20"
+              groups="base.group_system"/>
+</odoo>
+

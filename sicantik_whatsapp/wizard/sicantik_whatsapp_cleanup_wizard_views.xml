@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sicantik_whatsapp_cleanup_wizard_form" model="ir.ui.view">
+        <field name="name">sicantik.whatsapp.cleanup.wizard.form</field>
+        <field name="model">sicantik.whatsapp.cleanup.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cleanup Template WhatsApp">
+                <sheet>
+                    <group>
+                        <div class="alert alert-warning" role="alert">
+                            <h4>⚠️ Peringatan</h4>
+                            <p>
+                                Tindakan ini akan menghapus semua template WhatsApp SICANTIK yang sudah ada di database.
+                            </p>
+                            <p>
+                                Template yang akan dihapus:
+                            </p>
+                            <ul>
+                                <li>Izin Selesai Diproses</li>
+                                <li>Dokumen Baru untuk Tandatangan</li>
+                                <li>Dokumen Perlu Approval</li>
+                                <li>Update Status Perizinan</li>
+                                <li>Reminder Dokumen Pending</li>
+                                <li>Peringatan Masa Berlaku Izin</li>
+                                <li>Perpanjangan Izin Disetujui</li>
+                            </ul>
+                            <p>
+                                <strong>Setelah cleanup, silakan upgrade modul sicantik_whatsapp untuk membuat template baru.</strong>
+                            </p>
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_cleanup_templates" string="Hapus Template" type="object" class="btn-danger"/>
+                    <button string="Batal" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sicantik_whatsapp_cleanup_wizard" model="ir.actions.act_window">
+        <field name="name">Cleanup Template WhatsApp SICANTIK</field>
+        <field name="res_model">sicantik.whatsapp.cleanup.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
+

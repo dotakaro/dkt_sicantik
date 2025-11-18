@@ -1,0 +1,127 @@
+/**
+ * SICANTIK TTE Custom Styles
+ * 
+ * Custom CSS untuk modul TTE & Digital Signature
+ */
+
+/* Document Status Colors */
+.o_sicantik_document_signed {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.o_sicantik_document_pending {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.o_sicantik_document_rejected {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* QR Code Display */
+.o_sicantik_qr_code {
+    text-align: center;
+    padding: 20px;
+}
+
+.o_sicantik_qr_code img {
+    max-width: 300px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+}
+
+/* Signature Workflow Status */
+.o_signature_workflow_status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.o_signature_workflow_status.draft {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.o_signature_workflow_status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.o_signature_workflow_status.approved {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.o_signature_workflow_status.signed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.o_signature_workflow_status.rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Document Upload Area */
+.o_document_upload_area {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.o_document_upload_area:hover {
+    border-color: #007bff;
+    background-color: #e7f3ff;
+}
+
+.o_document_upload_area.dragover {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+/* BSRE Status Indicator */
+.o_bsre_connection_status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.o_bsre_connection_status.connected {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.o_bsre_connection_status.disconnected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.o_bsre_connection_status .fa {
+    font-size: 16px;
+}
+
+/* Verification Badge */
+.o_verification_badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+

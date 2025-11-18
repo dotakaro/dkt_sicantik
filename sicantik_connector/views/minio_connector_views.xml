@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- MinIO Connector Form View -->
+    <record id="view_minio_connector_form" model="ir.ui.view">
+        <field name="name">minio.connector.form</field>
+        <field name="model">minio.connector</field>
+        <field name="arch" type="xml">
+            <form string="Konfigurasi MinIO">
+                <header>
+                    <button name="action_test_connection" type="object" 
+                            string="Tes Koneksi" class="btn-primary"/>
+                    <field name="connection_status" widget="badge"
+                           decoration-success="connection_status == 'connected'"
+                           decoration-danger="connection_status == 'error'"
+                           decoration-muted="connection_status == 'disconnected'"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-upload" disabled="1">
+                            <field name="total_uploads" widget="statinfo" string="Total Upload"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-download" disabled="1">
+                            <field name="total_downloads" widget="statinfo" string="Total Download"/>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Nama Konfigurasi"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group string="Connection Settings">
+                            <field name="endpoint"/>
+                            <field name="access_key"/>
+                            <field name="secret_key" password="True"/>
+                            <field name="secure"/>
+                            <field name="region"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Status">
+                            <field name="last_connection_test" readonly="1"/>
+                            <field name="last_error" widget="text" readonly="1"
+                                   invisible="last_error == False"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- MinIO Connector List View -->
+    <record id="view_minio_connector_tree" model="ir.ui.view">
+        <field name="name">minio.connector.tree</field>
+        <field name="model">minio.connector</field>
+        <field name="arch" type="xml">
+            <list string="Konfigurasi MinIO">
+                <field name="name"/>
+                <field name="endpoint"/>
+                <field name="connection_status" widget="badge"
+                       decoration-success="connection_status == 'connected'"
+                       decoration-danger="connection_status == 'error'"
+                       decoration-warning="connection_status == 'disconnected'"/>
+                <field name="total_uploads"/>
+                <field name="total_downloads"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- MinIO Connector Action -->
+    <record id="action_minio_connector" model="ir.actions.act_window">
+        <field name="name">MinIO Storage</field>
+        <field name="res_model">minio.connector</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Buat konfigurasi MinIO pertama
+            </p>
+            <p>
+                Konfigurasikan koneksi ke MinIO Object Storage untuk menyimpan dokumen.
+            </p>
+        </field>
+    </record>
+</odoo>
+

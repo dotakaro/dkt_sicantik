@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cron Job: Cek Izin Mendekati Masa Berlaku (dengan WhatsApp) -->
+    <record id="cron_cek_izin_mendekati_masa_berlaku_whatsapp" model="ir.cron">
+        <field name="name">SICANTIK: Cek Izin Mendekati Masa Berlaku (WhatsApp)</field>
+        <field name="model_id" ref="model_sicantik_permit"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_check_expiring_permits()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="priority">5</field>
+        <!-- Dijalankan setiap hari jam 09:00 -->
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=9, minute=0, second=0)"/>
+    </record>
+
+    <!-- Cron Job: Reminder Dokumen Pending -->
+    <record id="cron_reminder_dokumen_pending" model="ir.cron">
+        <field name="name">SICANTIK: Reminder Dokumen Pending (WhatsApp)</field>
+        <field name="model_id" ref="model_sicantik_document"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_reminder_dokumen_pending()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="priority">6</field>
+        <!-- Dijalankan setiap hari jam 10:00 -->
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=10, minute=0, second=0)"/>
+    </record>
+
+</odoo>
+

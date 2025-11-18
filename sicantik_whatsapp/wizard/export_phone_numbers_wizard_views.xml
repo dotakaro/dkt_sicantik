@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="whatsapp_export_phone_numbers_wizard_form" model="ir.ui.view">
+        <field name="name">whatsapp.export.phone.numbers.wizard.form</field>
+        <field name="model">whatsapp.export.phone.numbers.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export Phone Numbers untuk Meta Approval">
+                <sheet>
+                    <group>
+                        <div class="alert alert-info" role="alert">
+                            <h4>📱 Export Nomor HP untuk Meta Business Manager</h4>
+                            <p>
+                                Tool ini akan export nomor HP dari partner yang memiliki permit ke format CSV.
+                                File CSV bisa di-upload ke Meta Business Manager untuk pre-approval.
+                            </p>
+                            <p>
+                                <strong>Cara penggunaan:</strong>
+                            </p>
+                            <ol>
+                                <li>Klik "Export CSV" untuk download file</li>
+                                <li>Buka Meta Business Manager → WhatsApp → Phone Numbers</li>
+                                <li>Klik Settings (gear icon) pada nomor WhatsApp Business Account</li>
+                                <li>Pilih menu "Contacts" atau "Approved Contacts"</li>
+                                <li>Upload file CSV yang sudah didownload</li>
+                                <li>Request approval ke Meta</li>
+                            </ol>
+                            <p>
+                                <strong>Format nomor:</strong> Tanpa +, tanpa spasi/dash (contoh: 6285370108877)
+                            </p>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="wa_account_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="limit" widget="integer"/>
+                        <field name="include_only_with_permits"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_download_csv" string="📥 Export CSV" type="object" class="btn-primary"/>
+                    <button string="Batal" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_whatsapp_export_phone_numbers_wizard" model="ir.actions.act_window">
+        <field name="name">Export Phone Numbers untuk Meta</field>
+        <field name="res_model">whatsapp.export.phone.numbers.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
+

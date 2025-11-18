@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SICANTIK Permit Type Form View -->
+    <record id="view_sicantik_permit_type_form" model="ir.ui.view">
+        <field name="name">sicantik.permit.type.form</field>
+        <field name="model">sicantik.permit.type</field>
+        <field name="arch" type="xml">
+            <form string="Permit Type">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_permits" type="object" class="oe_stat_button" icon="fa-list">
+                            <field name="permit_count" widget="statinfo" string="Total Permits"/>
+                        </button>
+                        <button name="action_view_permits" type="object" class="oe_stat_button" icon="fa-check-circle">
+                            <field name="active_permit_count" widget="statinfo" string="Active"/>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., IZIN PRAKTEK DOKTER UMUM"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="last_sync_date"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Description">
+                        <field name="description" placeholder="Detailed description of this permit type..." nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SICANTIK Permit Type List View -->
+    <record id="view_sicantik_permit_type_tree" model="ir.ui.view">
+        <field name="name">sicantik.permit.type.tree</field>
+        <field name="model">sicantik.permit.type</field>
+        <field name="arch" type="xml">
+            <list string="Permit Types">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="permit_count"/>
+                <field name="active_permit_count"/>
+                <field name="last_sync_date"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SICANTIK Permit Type Search View -->
+    <record id="view_sicantik_permit_type_search" model="ir.ui.view">
+        <field name="name">sicantik.permit.type.search</field>
+        <field name="model">sicantik.permit.type</field>
+        <field name="arch" type="xml">
+            <search string="Search Permit Types">
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- SICANTIK Permit Type Action -->
+    <record id="action_sicantik_permit_type" model="ir.actions.act_window">
+        <field name="name">Permit Types</field>
+        <field name="res_model">sicantik.permit.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No permit types found
+            </p>
+            <p>
+                Permit types will be automatically synced from SICANTIK server.
+            </p>
+        </field>
+    </record>
+</odoo>
+

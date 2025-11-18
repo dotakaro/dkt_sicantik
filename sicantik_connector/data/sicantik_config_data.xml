@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Default SICANTIK Configuration -->
+    <record id="default_sicantik_config" model="sicantik.config">
+        <field name="name">SICANTIK Production</field>
+        <field name="api_url">http://perizinan.karokab.go.id/backoffice/api</field>
+        <field name="api_timeout">120</field>
+        <field name="sync_interval">15</field>
+        <field name="sync_limit">100</field>
+        <field name="rate_limit_enabled" eval="True"/>
+        <field name="rate_limit_requests">10</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Default SICANTIK Connector -->
+    <record id="default_sicantik_connector" model="sicantik.connector">
+        <field name="name">SICANTIK Connector</field>
+        <field name="config_id" ref="default_sicantik_config"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
+

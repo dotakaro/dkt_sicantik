@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default MinIO Configuration -->
+    <record id="minio_connector_default" model="minio.connector">
+        <field name="name">MinIO Storage Default</field>
+        <field name="endpoint">minio_storage:9000</field>
+        <field name="access_key">minioadmin</field>
+        <field name="secret_key">minioadmin123</field>
+        <field name="secure" eval="False"/>
+        <field name="region"></field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
+

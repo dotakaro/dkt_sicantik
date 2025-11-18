@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sicantik_document_user,sicantik.document.user,model_sicantik_document,base.group_user,1,1,1,0
+access_sicantik_document_manager,sicantik.document.manager,model_sicantik_document,base.group_system,1,1,1,1
+access_minio_connector_user,minio.connector.user,model_minio_connector,base.group_user,1,0,0,0
+access_minio_connector_manager,minio.connector.manager,model_minio_connector,base.group_system,1,1,1,1
+access_bsre_config_user,bsre.config.user,model_bsre_config,base.group_user,1,0,0,0
+access_bsre_config_manager,bsre.config.manager,model_bsre_config,base.group_system,1,1,1,1
+access_signature_workflow_user,signature.workflow.user,model_signature_workflow,base.group_user,1,1,1,0
+access_signature_workflow_manager,signature.workflow.manager,model_signature_workflow,base.group_system,1,1,1,1
+access_document_upload_wizard,document.upload.wizard,model_document_upload_wizard,base.group_user,1,1,1,1
+access_batch_sign_wizard,batch.sign.wizard,model_batch_sign_wizard,base.group_system,1,1,1,1
+access_sign_passphrase_wizard,sign.passphrase.wizard,model_sign_passphrase_wizard,base.group_user,1,1,1,1
+
