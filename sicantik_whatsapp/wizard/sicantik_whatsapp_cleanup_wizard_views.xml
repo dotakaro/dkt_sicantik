@@ -4,34 +4,41 @@
         <field name="name">sicantik.whatsapp.cleanup.wizard.form</field>
         <field name="model">sicantik.whatsapp.cleanup.wizard</field>
         <field name="arch" type="xml">
-            <form string="Cleanup Template WhatsApp">
+            <form string="Pembersihan Template WhatsApp">
                 <sheet>
                     <group>
                         <div class="alert alert-warning" role="alert">
-                            <h4>⚠️ Peringatan</h4>
+                            <h4>⚠️ Peringatan Penting</h4>
                             <p>
-                                Tindakan ini akan menghapus semua template WhatsApp SICANTIK yang sudah ada di database.
+                                Tindakan ini akan menghapus <strong>SEMUA</strong> template WhatsApp SICANTIK yang telah dibuat di database.
                             </p>
                             <p>
-                                Template yang akan dihapus:
+                                Template yang akan dihapus termasuk:
                             </p>
                             <ul>
-                                <li>Izin Selesai Diproses</li>
-                                <li>Dokumen Baru untuk Tandatangan</li>
-                                <li>Dokumen Perlu Approval</li>
-                                <li>Update Status Perizinan</li>
-                                <li>Reminder Dokumen Pending</li>
-                                <li>Peringatan Masa Berlaku Izin</li>
-                                <li>Perpanjangan Izin Disetujui</li>
+                                <li><strong>Izin Selesai Diproses</strong> - Notifikasi kepada pemohon bahwa perizinan telah selesai diproses</li>
+                                <li><strong>Dokumen Baru untuk Tandatangan</strong> - Notifikasi kepada pejabat untuk menandatangani dokumen baru</li>
+                                <li><strong>Dokumen Perlu Approval</strong> - Notifikasi kepada atasan untuk approve dokumen</li>
+                                <li><strong>Update Status Perizinan</strong> - Notifikasi perubahan status perizinan</li>
+                                <li><strong>Reminder Dokumen Pending</strong> - Pengingat untuk dokumen yang menunggu proses</li>
+                                <li><strong>Peringatan Masa Berlaku Izin</strong> - Notifikasi saat izin mendekati masa kedaluwarsa (90/60/30/7 hari)</li>
+                                <li><strong>Perpanjangan Izin Disetujui</strong> - Notifikasi ketika perpanjangan izin disetujui</li>
                             </ul>
                             <p>
-                                <strong>Setelah cleanup, silakan upgrade modul sicantik_whatsapp untuk membuat template baru.</strong>
+                                <strong>CATATAN PENTING:</strong> Setelah melakukan pembersihan, sistem akan tetap berfungsi normal,
+                                namun Anda perlu melakukan restart Odoo atau upgrade modul untuk membuat ulang template dengan versi terbaru.
+                            </p>
+                            <p>
+                                ⚠️ <strong>TINDAKAN INI TIDAK DAPAT DIBATALKAN!</strong>
                             </p>
                         </div>
                     </group>
+                    <group string="Konfirmasi">
+                        <field name="confirm_cleanup" string="Saya memahami konsekuensi dari tindakan ini"/>
+                    </group>
                 </sheet>
                 <footer>
-                    <button name="action_cleanup_templates" string="Hapus Template" type="object" class="btn-danger"/>
+                    <button name="action_cleanup_templates" string="Hapus Semua Template" type="object" class="btn-danger"/>
                     <button string="Batal" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
@@ -39,10 +46,18 @@
     </record>
 
     <record id="action_sicantik_whatsapp_cleanup_wizard" model="ir.actions.act_window">
-        <field name="name">Cleanup Template WhatsApp SICANTIK</field>
+        <field name="name">Pembersihan Template WhatsApp SICANTIK</field>
         <field name="res_model">sicantik.whatsapp.cleanup.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Pembersihan Template WhatsApp
+            </p>
+            <p>
+                Gunakan wizard ini untuk menghapus semua template WhatsApp SICANTIK yang ada.
+                Ini berguna saat Anda perlu membuat ulang template dengan versi terbaru.
+            </p>
+        </field>
     </record>
 </odoo>
-

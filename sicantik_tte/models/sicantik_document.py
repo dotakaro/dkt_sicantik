@@ -197,14 +197,22 @@ class SicantikDocument(models.Model):
     
     @api.depends('signer_id', 'create_uid')
     def _compute_mobile(self):
-        """Compute mobile number from signer or creator"""
+        """Compute mobile number from signer or creator using safe accessor"""
         for record in self:
             mobile_number = False
             # Prioritize signer_id, fallback to create_uid
             if record.signer_id:
-                mobile_number = getattr(record.signer_id, 'mobile', False) or getattr(record.signer_id.partner_id, 'mobile', False)
+                # Try signer's partner first, then signer itself (if signer is a user)
+                if hasattr(record.signer_id, 'partner_id') and record.signer_id.partner_id:
+                    mobile_number = record.signer_id.partner_id._get_mobile_or_phone()
+                elif hasattr(record.signer_id, '_get_mobile_or_phone'):
+                    mobile_number = record.signer_id._get_mobile_or_phone()
             elif record.create_uid:
-                mobile_number = getattr(record.create_uid, 'mobile', False) or getattr(record.create_uid.partner_id, 'mobile', False)
+                # create_uid is res.users, try partner_id first
+                if record.create_uid.partner_id:
+                    mobile_number = record.create_uid.partner_id._get_mobile_or_phone()
+                elif hasattr(record.create_uid, '_get_mobile_or_phone'):
+                    mobile_number = record.create_uid._get_mobile_or_phone()
             record.mobile = mobile_number
     
     @api.depends('minio_bucket', 'minio_object_name')

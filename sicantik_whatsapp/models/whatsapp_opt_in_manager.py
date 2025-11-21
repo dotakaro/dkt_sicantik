@@ -37,7 +37,10 @@ class WhatsAppOptInManager(models.Model):
         """
         partner = self.env['res.partner'].browse(partner_id)
         
-        if not partner or not partner.mobile:
+        # Safe access untuk mobile/phone
+        mobile = partner._get_mobile_or_phone() if partner else False
+        
+        if not partner or not mobile:
             return {
                 'can_send': False,
                 'reason': 'Partner tidak memiliki nomor HP',
@@ -47,7 +50,7 @@ class WhatsAppOptInManager(models.Model):
         
         # Cek blacklist
         if self.env['phone.blacklist'].sudo().search_count([
-            ('number', 'ilike', partner.mobile),
+            ('number', 'ilike', mobile),
             ('active', '=', True)
         ], limit=1):
             return {
@@ -62,13 +65,13 @@ class WhatsAppOptInManager(models.Model):
         
         # Cek 24-hour window: cari pesan inbound terakhir dari nomor ini
         # Format nomor untuk pencarian: hapus spasi, dash, dan plus
-        mobile_formatted = partner.mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
+        mobile_formatted = mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
         if mobile_formatted.startswith('+'):
             mobile_formatted = mobile_formatted[1:]
         elif mobile_formatted.startswith('0'):
             mobile_formatted = '62' + mobile_formatted[1:]
         
-        _logger.info(f'🔍 Mencari pesan inbound untuk nomor: {partner.mobile} (formatted: {mobile_formatted})')
+        _logger.info(f'🔍 Mencari pesan inbound untuk nomor: {mobile} (formatted: {mobile_formatted})')
         _logger.info(f'   WhatsApp Account ID: {wa_account_id}')
         
         # Cari dengan berbagai format nomor dan state
@@ -89,7 +92,7 @@ class WhatsAppOptInManager(models.Model):
             # Match dengan mobile_number dari partner (dengan berbagai format)
             [
                 ('message_type', '=', 'inbound'),
-                ('mobile_number', 'ilike', partner.mobile),
+                ('mobile_number', 'ilike', mobile),
                 ('wa_account_id', '=', wa_account_id),
             ],
         ]
@@ -108,7 +111,7 @@ class WhatsAppOptInManager(models.Model):
                 ('wa_account_id', '=', wa_account_id),
             ], order='create_date desc', limit=10)
             
-            _logger.warning(f'⚠️ Tidak ditemukan pesan inbound untuk {partner.mobile}')
+            _logger.warning(f'⚠️ Tidak ditemukan pesan inbound untuk {mobile}')
             _logger.info(f'   Total pesan inbound di account ini: {len(all_inbound)}')
             if all_inbound:
                 _logger.info(f'   Contoh nomor inbound terakhir: {all_inbound[0].mobile_number} (formatted: {all_inbound[0].mobile_number_formatted})')
@@ -130,11 +133,11 @@ class WhatsAppOptInManager(models.Model):
             
             if time_diff.total_seconds() < 86400:  # 24 jam = 86400 detik
                 use_24h_window = True
-                _logger.info(f'✅ 24-hour window AKTIF untuk {partner.mobile}')
+                _logger.info(f'✅ 24-hour window AKTIF untuk {mobile}')
                 _logger.info(f'   Terakhir pesan: {last_message_time}')
                 _logger.info(f'   Sisa waktu: {24 - hours_diff:.1f} jam')
             else:
-                _logger.warning(f'⚠️ 24-hour window SUDAH EXPIRED untuk {partner.mobile}')
+                _logger.warning(f'⚠️ 24-hour window SUDAH EXPIRED untuk {mobile}')
                 _logger.warning(f'   Terakhir pesan: {last_message_time} ({hours_diff:.1f} jam yang lalu)')
         
         # Bisa kirim jika: opt-in ATAU dalam 24-hour window
@@ -164,9 +167,11 @@ class WhatsAppOptInManager(models.Model):
         if not partner:
             return False
         
+        mobile = partner._get_mobile_or_phone()
+        
         # TODO: Implementasi SMS/Email opt-in request
         # Untuk sekarang, return False
-        _logger.info(f'Request opt-in untuk {partner.name} ({partner.mobile})')
+        _logger.info(f'Request opt-in untuk {partner.name} ({mobile})')
         return False
     
     def auto_opt_in_from_inbound_message(self, whatsapp_message_id):
@@ -177,19 +182,25 @@ class WhatsAppOptInManager(models.Model):
         message = self.env['whatsapp.message'].browse(whatsapp_message_id)
         
         if message.message_type == 'inbound' and message.mobile_number_formatted:
-            # Cari partner berdasarkan nomor
+            # Cari partner berdasarkan nomor (coba phone dulu, fallback ke whatsapp_number)
             partner = self.env['res.partner'].search([
-                ('mobile', 'ilike', message.mobile_number_formatted)
+                ('phone', 'ilike', message.mobile_number_formatted)
             ], limit=1)
+            
+            if not partner:
+                partner = self.env['res.partner'].search([
+                    ('whatsapp_number', 'ilike', message.mobile_number_formatted)
+                ], limit=1)
             
             if partner:
                 # Set opt-in jika belum
                 if not getattr(partner, 'whatsapp_opt_in', False):
+                    mobile = partner._get_mobile_or_phone()
                     partner.write({
                         'whatsapp_opt_in': True,
                         'whatsapp_opt_in_date': fields.Datetime.now()
                     })
-                    _logger.info(f'✅ Auto opt-in untuk {partner.name} ({partner.mobile}) dari inbound message')
+                    _logger.info(f'✅ Auto opt-in untuk {partner.name} ({mobile}) dari inbound message')
         
         return True
     
@@ -200,16 +211,18 @@ class WhatsAppOptInManager(models.Model):
         partner = self.env['res.partner'].browse(partner_id)
         wa_account = self.env['whatsapp.account'].browse(wa_account_id)
         
+        mobile = partner._get_mobile_or_phone() if partner else False
+        
         result = {
             'partner_name': partner.name if partner else 'N/A',
-            'partner_mobile': partner.mobile if partner else 'N/A',
+            'partner_mobile': mobile or 'N/A',
             'wa_account_name': wa_account.name if wa_account else 'N/A',
             'inbound_messages': [],
             'total_inbound': 0,
             'last_inbound': None,
         }
         
-        if not partner or not wa_account:
+        if not partner or not wa_account or not mobile:
             return result
         
         # Cari semua pesan inbound untuk account ini
@@ -222,14 +235,14 @@ class WhatsAppOptInManager(models.Model):
         
         # Cari pesan inbound untuk nomor partner ini
         mobile_variants = [
-            partner.mobile,
-            partner.mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', ''),
+            mobile,
+            mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', ''),
         ]
         
-        if partner.mobile.startswith('+'):
-            mobile_variants.append(partner.mobile[1:])
-        elif partner.mobile.startswith('0'):
-            mobile_variants.append('62' + partner.mobile[1:])
+        if mobile.startswith('+'):
+            mobile_variants.append(mobile[1:])
+        elif mobile.startswith('0'):
+            mobile_variants.append('62' + mobile[1:])
         
         for variant in mobile_variants:
             matching = all_inbound.filtered(lambda m: 
@@ -273,8 +286,8 @@ class WhatsAppOptInManager(models.Model):
         """
         # Cari semua partner yang punya nomor HP dan terkait dengan permit
         domain = [
-            ('mobile', '!=', False),
-            ('mobile', '!=', ''),
+            ('phone', '!=', False),
+            ('phone', '!=', ''),
             ('sicantik_permit_ids', '!=', False),
         ]
         
@@ -286,11 +299,12 @@ class WhatsAppOptInManager(models.Model):
         # Format nomor untuk Meta (tanpa +, tanpa spasi/dash)
         phone_numbers = []
         for partner in partners:
-            if not partner.mobile:
+            mobile = partner._get_mobile_or_phone()
+            if not mobile:
                 continue
             
             # Normalize nomor
-            mobile = partner.mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
+            mobile = mobile.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
             
             if mobile.startswith('+'):
                 mobile = mobile[1:]

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_test_multi_provider_wizard_form" model="ir.ui.view">
+        <field name="name">test.multi.provider.wizard.form</field>
+        <field name="model">test.multi.provider.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Test Multi-Provider WhatsApp">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>🧪 Testing Multi-Provider WhatsApp</strong></p>
+                        <p>Wizard ini untuk menguji routing otomatis dan pengiriman pesan via berbagai provider (Meta, Watzap.id, Fonnte).</p>
+                    </div>
+
+                    <group>
+                        <group string="Penerima">
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Provider (Optional)">
+                            <field name="force_provider_id" placeholder="Kosongkan untuk auto-select"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Template">
+                            <field name="template_key"/>
+                        </group>
+                        <group string="Test Data">
+                            <field name="test_permit_number"/>
+                            <field name="test_permit_type"/>
+                            <field name="test_status"/>
+                        </group>
+                    </group>
+
+                    <group string="Test Result" invisible="test_result == False">
+                        <field name="test_result" widget="text" readonly="1"/>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button name="action_run_test" string="🚀 Run Test" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_test_multi_provider_wizard" model="ir.actions.act_window">
+        <field name="name">Test Multi-Provider</field>
+        <field name="res_model">test.multi.provider.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sicantik_connector.model_sicantik_config"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+</odoo>
+

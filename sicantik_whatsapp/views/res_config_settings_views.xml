@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_inherit_whatsapp_provider" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.whatsapp.provider</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <div class="app_settings_block" data-string="WhatsApp Notifications" string="WhatsApp Notifications" data-key="sicantik_whatsapp">
+                    <h2>WhatsApp Notifications</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="whatsapp_provider_id" options="{'no_open': False}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="whatsapp_provider_id"/>
+                                <p class="text-muted">
+                                    Pilih provider default untuk mengirim pesan WhatsApp (Meta / Watzap.id / Fonnte).
+                                    Provider dapat dikustomisasi per workflow nantinya.
+                                </p>
+                                <p class="text-muted">
+                                    Kelola credential provider melalui menu WhatsApp → Konfigurasi → Profil Provider.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

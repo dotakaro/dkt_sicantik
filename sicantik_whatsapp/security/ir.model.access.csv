@@ -4,4 +4,9 @@ access_sicantik_document_whatsapp_user,sicantik.document.whatsapp.user,model_sic
 access_sicantik_whatsapp_cleanup_wizard,sicantik.whatsapp.cleanup.wizard,model_sicantik_whatsapp_cleanup_wizard,base.group_system,1,1,1,1
 access_whatsapp_opt_in_manager,whatsapp.opt.in.manager,model_whatsapp_opt_in_manager,base.group_user,1,0,0,0
 access_whatsapp_export_phone_numbers_wizard,whatsapp.export.phone.numbers.wizard,model_whatsapp_export_phone_numbers_wizard,base.group_user,1,1,1,0
+access_sicantik_whatsapp_provider,sicantik.whatsapp.provider,model_sicantik_whatsapp_provider,base.group_system,1,1,1,1
+access_sicantik_whatsapp_template_master_user,sicantik.whatsapp.template.master.user,model_sicantik_whatsapp_template_master,base.group_user,1,0,0,0
+access_sicantik_whatsapp_template_master_admin,sicantik.whatsapp.template.master.admin,model_sicantik_whatsapp_template_master,base.group_system,1,1,1,1
+access_sicantik_whatsapp_dispatcher,sicantik.whatsapp.dispatcher,model_sicantik_whatsapp_dispatcher,base.group_user,1,0,0,0
+access_test_multi_provider_wizard,test.multi.provider.wizard,model_test_multi_provider_wizard,base.group_user,1,1,1,1
 

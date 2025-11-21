@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Master Template: Izin Selesai Diproses -->
+        <record id="master_template_permit_ready" model="sicantik.whatsapp.template.master">
+            <field name="template_key">permit_ready</field>
+            <field name="name">Izin Selesai Diproses</field>
+            <field name="description">Notifikasi saat izin selesai diproses dan siap diambil</field>
+            <field name="body_preview">Yth. {{partner_name}},
+
+Izin Anda dengan nomor {{permit_number}} telah selesai diproses.
+
+Jenis Izin: {{permit_type}}
+Status: {{status}}
+
+Silakan ambil dokumen izin di kantor DPMPTSP Kabupaten Karo.
+
+Terima kasih.</field>
+            <field name="parameter_list">["partner_name", "permit_number", "permit_type", "status"]</field>
+            <field name="language">id</field>
+            <field name="meta_template_name">izin_selesai_diproses</field>
+            <field name="watzap_template_name">izin_selesai_diproses</field>
+            <field name="fonnte_template_name">izin_selesai_diproses</field>
+        </record>
+
+        <!-- Master Template: Peringatan Masa Berlaku -->
+        <record id="master_template_permit_reminder" model="sicantik.whatsapp.template.master">
+            <field name="template_key">permit_reminder</field>
+            <field name="name">Peringatan Masa Berlaku Izin</field>
+            <field name="description">Reminder izin akan segera berakhir (90/60/30/7 hari sebelumnya)</field>
+            <field name="body_preview">Yth. {{partner_name}},
+
+Izin Anda akan segera berakhir:
+
+Nomor Izin: {{permit_number}}
+Jenis Izin: {{permit_type}}
+Masa Berlaku: {{expiry_date}}
+Sisa: {{days_remaining}} hari
+
+Segera lakukan perpanjangan:
+{{renewal_link}}
+
+Informasi: {{contact_info}}
+
+Terima kasih.</field>
+            <field name="parameter_list">["partner_name", "permit_number", "permit_type", "expiry_date", "days_remaining", "renewal_link", "contact_info"]</field>
+            <field name="language">id</field>
+            <field name="meta_template_name">peringatan_masa_berlaku_izin</field>
+            <field name="watzap_template_name">peringatan_masa_berlaku</field>
+            <field name="fonnte_template_name">peringatan_masa_berlaku</field>
+        </record>
+
+        <!-- Master Template: Update Status -->
+        <record id="master_template_status_update" model="sicantik.whatsapp.template.master">
+            <field name="template_key">status_update</field>
+            <field name="name">Update Status Perizinan</field>
+            <field name="description">Notifikasi saat ada perubahan status perizinan</field>
+            <field name="body_preview">Yth. {{partner_name}},
+
+Status perizinan Anda telah diupdate:
+
+Nomor: {{permit_number}}
+Jenis: {{permit_type}}
+Status Baru: {{new_status}}
+Tanggal Update: {{update_date}}
+
+Terima kasih.</field>
+            <field name="parameter_list">["partner_name", "permit_number", "permit_type", "new_status", "update_date"]</field>
+            <field name="language">id</field>
+            <field name="meta_template_name">update_status_perizinan</field>
+            <field name="watzap_template_name">update_status</field>
+            <field name="fonnte_template_name">update_status</field>
+        </record>
+
+        <!-- Master Template: Perpanjangan Disetujui -->
+        <record id="master_template_renewal_approved" model="sicantik.whatsapp.template.master">
+            <field name="template_key">renewal_approved</field>
+            <field name="name">Perpanjangan Izin Disetujui</field>
+            <field name="description">Notifikasi saat perpanjangan izin disetujui</field>
+            <field name="body_preview">Yth. {{partner_name}},
+
+Selamat! Perpanjangan izin Anda telah disetujui.
+
+Nomor Izin: {{permit_number}}
+Jenis Izin: {{permit_type}}
+Masa Berlaku Baru: s/d {{new_expiry_date}}
+
+Dokumen perpanjangan dapat diambil di kantor DPMPTSP.
+
+Terima kasih.</field>
+            <field name="parameter_list">["partner_name", "permit_number", "permit_type", "new_expiry_date"]</field>
+            <field name="language">id</field>
+            <field name="meta_template_name">perpanjangan_izin_disetujui</field>
+            <field name="watzap_template_name">perpanjangan_disetujui</field>
+            <field name="fonnte_template_name">perpanjangan_disetujui</field>
+        </record>
+
+        <!-- Master Template: Meta Opt-In Request -->
+        <record id="master_template_meta_opt_in" model="sicantik.whatsapp.template.master">
+            <field name="template_key">meta_opt_in_request</field>
+            <field name="name">Request Meta Opt-In</field>
+            <field name="description">Pesan untuk meminta partner opt-in ke Meta (dikirim via Watzap/Fonnte)</field>
+            <field name="body_preview">Yth. {{partner_name}},
+
+Untuk menerima notifikasi izin yang lebih cepat dan aman via WhatsApp resmi Meta, silakan klik link berikut untuk memberikan persetujuan:
+
+{{opt_in_link}}
+
+Atau scan QR Code:
+{{qr_code_link}}
+
+Dengan opt-in, Anda akan menerima:
+✅ Notifikasi real-time
+✅ Status izin otomatis
+✅ Reminder masa berlaku
+
+Terima kasih.</field>
+            <field name="parameter_list">["partner_name", "opt_in_link", "qr_code_link"]</field>
+            <field name="language">id</field>
+            <!-- Template ini hanya untuk Watzap/Fonnte, tidak ada Meta version -->
+            <field name="watzap_template_name">meta_opt_in</field>
+            <field name="fonnte_template_name">meta_opt_in</field>
+        </record>
+
+    </data>
+</odoo>
+

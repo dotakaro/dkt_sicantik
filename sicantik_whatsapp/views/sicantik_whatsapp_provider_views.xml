@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_sicantik_whatsapp_provider_tree" model="ir.ui.view">
+        <field name="name">sicantik.whatsapp.provider.tree</field>
+        <field name="model">sicantik.whatsapp.provider</field>
+        <field name="arch" type="xml">
+            <list string="WhatsApp Providers">
+                <field name="name"/>
+                <field name="provider_type"/>
+                <field name="credential_state" widget="badge"
+                       decoration-success="credential_state == 'configured'"
+                       decoration-danger="credential_state == 'error'"
+                       decoration-muted="credential_state == 'draft'"/>
+                <field name="is_default"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sicantik_whatsapp_provider_form" model="ir.ui.view">
+        <field name="name">sicantik.whatsapp.provider.form</field>
+        <field name="model">sicantik.whatsapp.provider</field>
+        <field name="arch" type="xml">
+            <form string="WhatsApp Provider">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="mark_configured" class="oe_stat_button"
+                                help="Tandai credential sudah lengkap" icon="fa-check-square">
+                            <field name="credential_state" widget="badge"
+                                   decoration-success="credential_state == 'configured'"
+                                   decoration-danger="credential_state == 'error'"
+                                   decoration-muted="credential_state == 'draft'"/>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="provider_type"/>
+                            <field name="active"/>
+                            <field name="sequence"/>
+                            <field name="is_default"/>
+                        </group>
+                        <group>
+                            <field name="description" placeholder="Catatan singkat penggunaan provider ini"/>
+                            <field name="last_error_message" readonly="1"
+                                   invisible="last_error_message == False"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Meta Official" name="meta">
+                            <group invisible="provider_type != 'meta'">
+                                <field name="meta_account_id"/>
+                                <field name="meta_namespace"/>
+                                <span class="text-muted fw-bold">Catatan:</span>
+                                <p class="text-muted">
+                                    Provider tipe Meta menggunakan modul WhatsApp Enterprise bawaan Odoo.
+                                    Pastikan akun sudah connected agar template dapat dikirim.
+                                </p>
+                            </group>
+                            <group invisible="provider_type == 'meta'">
+                                <span class="text-muted fw-bold">Tidak relevan</span>
+                                <p class="text-muted">
+                                    Halaman ini hanya berlaku untuk provider tipe Meta.
+                                </p>
+                            </group>
+                        </page>
+
+                        <page string="Watzap.id" name="watzap">
+                            <group invisible="provider_type != 'watzap'">
+                                <field name="watzap_base_url"/>
+                                <field name="watzap_api_key" password="True"/>
+                                <field name="watzap_device_id"/>
+                                <field name="watzap_callback_token"/>
+                                <span class="text-muted fw-bold">Catatan API</span>
+                                <p class="text-muted">
+                                    Masukkan API Key, Device/Sender ID, dan token callback dari dashboard Watzap.id.
+                                    Endpoint default: https://api.watzap.id/v1.
+                                </p>
+                            </group>
+                            <group invisible="provider_type == 'watzap'">
+                                <span class="text-muted fw-bold">Tidak relevan</span>
+                                <p class="text-muted">
+                                    Halaman ini hanya berlaku untuk provider tipe Watzap.id.
+                                </p>
+                            </group>
+                        </page>
+
+                        <page string="Fonnte" name="fonnte">
+                            <group invisible="provider_type != 'fonnte'">
+                                <field name="fonnte_api_url"/>
+                                <field name="fonnte_token" password="True"/>
+                                <field name="fonnte_device"/>
+                                <field name="fonnte_secret" password="True"/>
+                                <span class="text-muted fw-bold">Catatan API</span>
+                                <p class="text-muted">
+                                    Masukkan token API, Device ID, dan secret dari dashboard Fonnte.
+                                </p>
+                            </group>
+                            <group invisible="provider_type == 'fonnte'">
+                                <span class="text-muted fw-bold">Tidak relevan</span>
+                                <p class="text-muted">
+                                    Halaman ini hanya berlaku untuk provider tipe Fonnte.
+                                </p>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sicantik_whatsapp_provider" model="ir.actions.act_window">
+        <field name="name">WhatsApp Providers</field>
+        <field name="res_model">sicantik.whatsapp.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_provider_type': 'watzap'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Buat profil provider WhatsApp pertama Anda.
+            </p>
+            <p>
+                Setiap provider menyimpan credential berbeda (Meta, Watzap.id, Fonnte).
+                Pilih salah satunya pada konfigurasi SICANTIK untuk mengirim notifikasi.
+            </p>
+        </field>
+    </record>
+
+</odoo>
+

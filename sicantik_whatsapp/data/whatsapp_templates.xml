@@ -144,7 +144,7 @@ SICANTIK Companion</field>
     </record>
 
     <!-- Template 3: Dokumen Perlu Approval -->
-    <!-- Note: phone_field menggunakan create_uid.mobile sebagai fallback -->
+    <!-- Note: phone_field menggunakan create_uid.phone untuk akses nomor HP -->
     <!-- Nomor approver akan di-set manual di code -->
     <record id="template_dokumen_perlu_approval" model="whatsapp.template">
         <field name="name">Dokumen Perlu Approval</field>

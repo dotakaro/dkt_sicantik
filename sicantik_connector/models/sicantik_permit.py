@@ -72,13 +72,13 @@ class SicantikPermit(models.Model):
         help='Mobile number from linked partner (for WhatsApp notifications)'
     )
     
-    @api.depends('partner_id')
+    @api.depends('partner_id', 'partner_id.phone', 'partner_id.whatsapp_number')
     def _compute_mobile(self):
-        """Compute mobile number from partner"""
+        """Compute mobile number from partner using safe accessor"""
         for record in self:
             if record.partner_id:
-                # Access mobile field directly, will be None if field doesn't exist
-                record.mobile = getattr(record.partner_id, 'mobile', False)
+                # Use safe accessor method to get phone/mobile/whatsapp number
+                record.mobile = record.partner_id._get_mobile_or_phone()
             else:
                 record.mobile = False
     
