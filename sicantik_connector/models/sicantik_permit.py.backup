@@ -186,10 +186,6 @@ class SicantikPermit(models.Model):
     )
 
     # Additional Fields
-    notes = fields.Text(
-        string="Notes",
-        help="Additional notes or comments about this permit",
-    )
 
     @api.depends("expiry_date")
     def _compute_days_until_expiry(self):

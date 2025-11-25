@@ -36,11 +36,27 @@ class SicantikDocument(models.Model):
         for record in self:
             # Cari staff yang bertanggung jawab (bisa dari workflow atau default)
             # Untuk sementara, kita kirim ke semua user internal dengan nomor WhatsApp
-            staff_users = self.env['res.users'].search([
+            # Field mobile ada di res.partner, bukan res.users, jadi kita filter manual
+            all_staff = self.env['res.users'].search([
                 ('share', '=', False),
-                ('mobile', '!=', False),
                 ('active', '=', True)
-            ], limit=5)  # Limit untuk menghindari spam
+            ])
+            
+            # Filter manual untuk user yang punya phone di partner_id
+            # Di Odoo 18.4, hanya ada field 'phone', tidak ada 'mobile'
+            def _has_phone(user):
+                if not user.partner_id:
+                    return False
+                # Gunakan method _get_mobile_or_phone() jika ada, atau langsung akses phone
+                if hasattr(user.partner_id, '_get_mobile_or_phone'):
+                    try:
+                        return bool(user.partner_id._get_mobile_or_phone())
+                    except:
+                        pass
+                # Fallback: akses phone langsung dengan safe access
+                return bool(getattr(user.partner_id, 'phone', False))
+            
+            staff_users = all_staff.filtered(_has_phone)[:5]  # Limit untuk menghindari spam
             
             if not staff_users:
                 _logger.warning('Tidak ada staff dengan nomor WhatsApp untuk notifikasi dokumen baru')
@@ -64,12 +80,18 @@ class SicantikDocument(models.Model):
             # Kirim notifikasi ke setiap staff
             for user in staff_users[:5]:  # Limit 5 staff untuk menghindari spam
                 try:
+                    # Ambil nomor mobile dari partner_id
+                    mobile = user.partner_id._get_mobile_or_phone() if user.partner_id else False
+                    if not mobile:
+                        _logger.warning(f'User {user.name} tidak memiliki nomor mobile/phone')
+                        continue
+                    
                     # Buat composer
                     composer = self.env['whatsapp.composer'].create({
                         'res_model': self._name,
                         'res_ids': record.ids,
                         'wa_template_id': template.id,
-                        'phone': user.mobile,
+                        'phone': mobile,
                     })
                     
                     # Set free text untuk jumlah dokumen pending
@@ -99,7 +121,17 @@ class SicantikDocument(models.Model):
                 return
             
             approver = workflow.approver_id
-            if not approver.mobile:
+            # Ambil nomor mobile dari partner jika approver adalah res.users
+            if hasattr(approver, 'partner_id') and approver.partner_id:
+                mobile = approver.partner_id._get_mobile_or_phone()
+            elif hasattr(approver, 'mobile'):
+                mobile = approver.mobile
+            elif hasattr(approver, '_get_mobile_or_phone'):
+                mobile = approver._get_mobile_or_phone()
+            else:
+                mobile = False
+            
+            if not mobile:
                 _logger.warning(f'Pejabat {approver.name} tidak memiliki nomor WhatsApp')
                 return
             
@@ -123,7 +155,7 @@ class SicantikDocument(models.Model):
                     'res_model': self._name,
                     'res_ids': record.ids,
                     'wa_template_id': template.id,
-                    'phone': approver.mobile,  # Set phone manual
+                    'phone': mobile,  # Set phone manual
                 })
                 
                 # Set semua variabel template (semua sekarang menggunakan free_text)
@@ -180,14 +212,36 @@ class SicantikDocument(models.Model):
             return
         
         # Kirim reminder ke staff
-        staff_users = self.env['res.users'].search([
+        # Field mobile ada di res.partner, bukan res.users, jadi kita filter manual
+        all_staff = self.env['res.users'].search([
             ('share', '=', False),
-            ('mobile', '!=', False),
             ('active', '=', True)
-        ], limit=3)  # Limit untuk menghindari spam
+        ])
+        
+        # Filter manual untuk user yang punya phone di partner_id
+        # Di Odoo 18.4, hanya ada field 'phone', tidak ada 'mobile'
+        def _has_phone(user):
+            if not user.partner_id:
+                return False
+            # Gunakan method _get_mobile_or_phone() jika ada, atau langsung akses phone
+            if hasattr(user.partner_id, '_get_mobile_or_phone'):
+                try:
+                    return bool(user.partner_id._get_mobile_or_phone())
+                except:
+                    pass
+            # Fallback: akses phone langsung dengan safe access
+            return bool(getattr(user.partner_id, 'phone', False))
+        
+        staff_users = all_staff.filtered(_has_phone)[:3]  # Limit untuk menghindari spam
         
         for user in staff_users[:3]:  # Limit 3 staff
             try:
+                # Ambil nomor mobile dari partner_id
+                mobile = user.partner_id._get_mobile_or_phone() if user.partner_id else False
+                if not mobile:
+                    _logger.warning(f'User {user.name} tidak memiliki nomor mobile/phone')
+                    continue
+                
                 # Ambil sample dokumen pending
                 sample_doc = dokumen_pending[0]
                 
@@ -195,7 +249,7 @@ class SicantikDocument(models.Model):
                     'res_model': self._name,
                     'res_ids': sample_doc.ids,
                     'wa_template_id': template.id,
-                    'phone': user.mobile,
+                    'phone': mobile,
                 })
                 
                 # Set free text untuk jumlah dokumen

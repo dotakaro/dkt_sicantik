@@ -1,0 +1,3 @@
+[submodule "sicantik_tte"]
+	path = sicantik_tte
+	url = https://github.com/dotakaro/dkt_sicantik.git
